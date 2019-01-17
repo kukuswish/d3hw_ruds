@@ -1,11 +1,11 @@
 // @TODO: YOUR CODE HERE!
 var svgWidth = 960;
-var svgHeight = 500;
+var svgHeight = 700;
 
 var margin = {
   top: 20,
   right: 40,
-  bottom: 80,
+  bottom: 100,
   left: 100
 };
 
@@ -134,38 +134,46 @@ a.then(function (ds){
     .call(bottomAxis);
   console.log(ds);
 
+  // append y axis
+  chartGroup.append("g")
+    .call(leftAxis);
+
+  // append initial circles
+  var circlesGroup = chartGroup.selectAll("circle")
+    .data(ds)
+    .enter()
+    .append("circle")
+    .attr("cx", d => xLinearScale(d[chosenXAxis]))
+    .attr("cy", d => yLinearScale(d[chosenYAxis]))
+    .attr("r", 20)
+    .attr("fill", "pink")
+    .attr("opacity", ".5");
+
+  // Create group for  2 x- axis labels
+  var labelsGroup = chartGroup.append("g")
+    .attr("transform", `translate(${width / 2}, ${height + 20})`);
+
+  var povertyLabel = labelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 20)
+    .attr("value", "poverty") // value to grab for event listener
+    .classed("active", true)
+    .text("In Poverty (%)");
+
+  var ageLabel = labelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 40)
+    .attr("value", "age") // value to grab for event listener
+    .classed("inactive", true)
+    .text("Age (Median)");
+
+  var incomeLabel = labelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 60)
+    .attr("value", "income") // value to grab for event listener
+    .classed("inactive", true)
+    .text("Household Income (Median)");
 });
-/*d3.csv("assets/data/data.csv", function(err, ds) {
-  if (err) throw err;
-});*/
-
-  
-
-  // // append y axis
-  // chartGroup.append("g")
-  //   .call(leftAxis);
-
-  // // append initial circles
-  // var circlesGroup = chartGroup.selectAll("circle")
-  //   .data(hairData)
-  //   .enter()
-  //   .append("circle")
-  //   .attr("cx", d => xLinearScale(d[chosenXAxis]))
-  //   .attr("cy", d => yLinearScale(d.num_hits))
-  //   .attr("r", 20)
-  //   .attr("fill", "pink")
-  //   .attr("opacity", ".5");
-
-  // // Create group for  2 x- axis labels
-  // var labelsGroup = chartGroup.append("g")
-  //   .attr("transform", `translate(${width / 2}, ${height + 20})`);
-
-  // var hairLengthLabel = labelsGroup.append("text")
-  //   .attr("x", 0)
-  //   .attr("y", 20)
-  //   .attr("value", "hair_length") // value to grab for event listener
-  //   .classed("active", true)
-  //   .text("Hair Metal Ban Hair Length (inches)");
 
   // var albumsLabel = labelsGroup.append("text")
   //   .attr("x", 0)

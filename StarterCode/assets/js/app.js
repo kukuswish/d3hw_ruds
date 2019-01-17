@@ -173,26 +173,45 @@ a.then(function (ds){
     .attr("value", "income") // value to grab for event listener
     .classed("inactive", true)
     .text("Household Income (Median)");
+
+  // append y axis
+  var ylabelsGroup = chartGroup.append("g")
+    .attr("transform", "rotate(-90)");
+
+  var hcLabel = ylabelsGroup.append("text")
+    .attr("y", 40 - margin.left)
+    .attr("x", 0 - (height / 2))
+    .attr("dy", "1em")
+    .attr("value", "noHealthInsurance")
+    .classed("axis-text", true)
+    .classed('active', true)
+    .text("Lacks Healthcare (%)");
+
+  var smokesLabel = ylabelsGroup.append("text")
+    .attr("y", 20 - margin.left)
+    .attr("x", 0 - (height / 2))
+    .attr("dy", "1em")
+    .attr("value", "smokes")
+    .classed("axis-text", true)
+    .classed('inactive', true)
+    .text("Smokes (%)");
+
+  var obeseLabel = ylabelsGroup.append("text")
+    .attr("y", 0 - margin.left)
+    .attr("x", 0 - (height / 2))
+    .attr("dy", "1em")
+    .attr("value", "obesity")
+    .classed("axis-text", true)
+    .classed('inactive', true)
+    .text("Obese (%)");
+
+  // updateToolTip function above csv import
+  var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
 });
 
-  // var albumsLabel = labelsGroup.append("text")
-  //   .attr("x", 0)
-  //   .attr("y", 40)
-  //   .attr("value", "num_albums") // value to grab for event listener
-  //   .classed("inactive", true)
-  //   .text("# of Albums Released");
+  
 
-  // // append y axis
-  // chartGroup.append("text")
-  //   .attr("transform", "rotate(-90)")
-  //   .attr("y", 0 - margin.left)
-  //   .attr("x", 0 - (height / 2))
-  //   .attr("dy", "1em")
-  //   .classed("axis-text", true)
-  //   .text("Number of Billboard 500 Hits");
-
-  // // updateToolTip function above csv import
-  // var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
+  
 
   // // x axis labels event listener
   // labelsGroup.selectAll("text")

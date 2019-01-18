@@ -73,8 +73,13 @@ function renderCircles(circlesGroup, newXScale, chosenXaxis) {
 
   return circlesGroup;
 }
+function renderCirclesy(circlesGroup, newYScale, chosenYaxis) {
+  circlesGroup.transition()
+      .duration(1000)
+      .attr("cy", d => newYScale(d[chosenYaxis]));
 
-
+  return circlesGroup;
+}
 // Retrieve data from the CSV file and execute everything below
 var a = d3.csv('assets/data/data.csv');
 a.then(function (ds){
@@ -260,7 +265,7 @@ a.then(function (ds){
         yAxis = renderAxesY(yLinearScale, yAxis);
         
         // updates circles with new x values
-        circlesGroup = renderCircles(circlesGroup, yLinearScale, chosenYAxis);
+        circlesGroup = renderCirclesy(circlesGroup, yLinearScale, chosenYAxis);
 
         // changes classes to change bold text
         if (chosenYAxis === "noHealthInsurance") {
